@@ -1,0 +1,71 @@
+* {
+    padding: 0;
+    margin: 3px;
+}
+
+html {
+    box-sizing: border-box;
+    text-align: center;
+    background-color: rgb(201, 103, 57);
+    color: seashell;
+    font-family: "Baloo Tamma 2";
+}
+
+h1 {
+    font-size: 4rem;
+    text-decoration: underline;
+    color: rgb(107, 38, 6);
+}
+
+h3 {
+    color: rgb(107, 38, 6);
+    margin: 0;
+    padding: 0;
+}
+
+#inputField {
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 20px;
+    color: rgb(107, 38, 6);
+    font-weight: 700;
+}
+
+#submitBtn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px 24px;
+    margin-top: 15px;
+    border-radius: 15px;
+    border: sienna;
+    background-color: rgb(107, 38, 6);
+    color: seashell;
+    font-weight: 700;
+}
+
+#submitBtn:hover {
+    background-color: rgb(75, 26, 4);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+#responseArea {
+    width: 200px;
+    height: 220px;
+    background-color: rgb(124, 43, 6);
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    color: seashell;
+    padding: 10px;
+    line-height: 1.4;
+}
+
+#responseText {
+    margin-top: auto;
+    margin-bottom: auto;
+}
