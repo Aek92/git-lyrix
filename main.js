@@ -1,11 +1,11 @@
-const inputField = document.getElementById('inputField');
+let textarea1 = document.getElementById('textarea1');
+let text1 = document.getElementById('text1');
 const submitBtn = document.getElementById('submitBtn');
-const responseText = document.getElementById('responseText');
+let responseText = document.getElementById('responseText');
 const url = "https://api.datamuse.com/words?rel_rhy="
 
-
 const getRhyme = () => {
-    let input = inputField.value;
+    let input = textarea1.value;
     let endpoint = url + input;
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -24,6 +24,27 @@ const getRhyme = () => {
     xhr.send();
 }
 
+
 submitBtn.onclick = () =>  {
     getRhyme();
+    textareaToText();
+}
+
+function textareaToText() {
+}
+
+document.body.onclick = () => {
+    if (!textarea1.value) {
+        return
+    }
+    text1.innerHTML = textarea1.value;
+    textarea1.style.display = "none";
+    console.log(text1.innerHTML);
+}
+
+text1.onclick = 
+
+
+function hideTextArea() {
+    
 }
