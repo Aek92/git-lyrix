@@ -1,6 +1,7 @@
 let textarea1 = document.getElementById('textarea1');
 let text1 = document.getElementById('text1');
 let responseText = document.getElementById('responseText');
+let responseArea = document.getElementById('responseArea');
 const saveBtn = document.getElementById('saveBtn');
 const rhymeBtn = document.getElementById('submitBtn');
 const url = "https://api.datamuse.com/words?rel_rhy="
@@ -22,7 +23,10 @@ const getRhyme = (string) => {
             }
         }
         let beautiString = rhymeArray.join("<br>");
-        responseText.innerHTML = beautiString;
+        if (!responseText.innerHTML) {
+            responseArea.style.display = "block";
+            responseText.innerHTML = beautiString;
+        }
     }
     xhr.open('GET', endpoint);
     xhr.send();
@@ -53,9 +57,16 @@ saveBtn.onmousedown = () => {
         });
         text1.addEventListener('click', function(event) {
             if (event.target !== this) {
-                console.log(event.target.textContent);
                 getRhyme(event.target.textContent);
-                event.target.textContent = rhymeArray[rhymeNr] + ' ';
+                if (rhymeNr === 0) {
+                    setTimeout(() => {
+                        event.target.textContent = rhymeArray[rhymeNr - 1] + ' ';
+                        
+                    }, 50);
+                } else {
+                    event.target.textContent = rhymeArray[rhymeNr] + ' ';
+                }
+                console.log(event.target.textContent);
                 rhymeNr++;
             }
         });
@@ -72,36 +83,3 @@ rhymeBtn.onclick = () => {
         return console.log('Error: no words to rhyme!')
     }
 }
-
-
-
-
-
-
-/*
-var sequencePdb = ["want", "these", "to", "be", "clickable"];
-
-// just pretend we got the data from the XHR
-(function() {
-  var sequenceLabel = document.getElementById("sequence-label");
-  
-  // wrap each sequence in a span
-  sequencePdb.forEach(function(pdb) {
-    var span = document.createElement('span');
-    
-    // use textContent instead of innerHTML to avoid XSS attacks!
-    span.textContent = pdb;
-    
-    sequenceLabel.appendChild(span);
-  });
-  
-  // only need one event listener
-  sequenceLabel.addEventListener('click', function(event) {
-    // rule out the #sequence-label itself if it was clicked directly
-    if (event.target !== this) {
-      // event.target is span, textContent is string value
-      console.log(event.target.textContent);
-    }
-  });
-}());
-*/
