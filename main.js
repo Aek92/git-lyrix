@@ -47,28 +47,3 @@ rhymeBtn.onclick = () => {
     }
 }
 
-// Pass either an id or a DOM element
-var wrapContent = (function() {
-
-    // This could be passed as a parameter
-    var oSpan = document.createElement('span');
-    oSpan.className = 'mySpanClass';
-  
-    return function(id) {
-      var el = (typeof id == 'string')? document.getElementById(id) : id;
-      var node, nodes = el && el.childNodes;
-      var span;
-      var fn = arguments.callee;
-  
-      for (var i=0, iLen=nodes.length; i<iLen; i++) {
-        node = nodes[i];
-        if (node.nodeType == 3) {
-          span = oSpan.cloneNode(false);
-          node.parentNode.insertBefore(span, node);
-          span.appendChild(node);
-        } else {
-          fn(node);
-        }
-      }
-    }
-  }());
