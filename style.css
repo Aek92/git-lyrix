@@ -48,7 +48,6 @@ h3 {
 
 #section1 {
     display: wrap;
-    justify-content: ;
 }
 
 .labelInput {
@@ -87,14 +86,15 @@ h3 {
     margin-right: auto;
     margin-bottom: 2rem;
     border: none;
+    background-color: sienna;
 }
 
 #section2, #section3, #section4, #section5, #section6, #section7 {
     display: none;
 }
 
-#submitBtn {
-    display: block;
+#submitBtn, #saveBtn {
+    display: inline-block;
     margin-left: auto;
     margin-right: auto;
     padding: 12px 24px;
@@ -104,9 +104,10 @@ h3 {
     background-color: rgb(107, 38, 6);
     color: seashell;
     font-weight: 700;
+    width: 115px;
 }
 
-#submitBtn:hover {
+#submitBtn:hover, #saveBtn:hover {
     background-color: rgb(75, 26, 4);
     transition: all 0.2s ease;
     cursor: pointer;

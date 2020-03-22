@@ -1,11 +1,12 @@
 let textarea1 = document.getElementById('textarea1');
 let text1 = document.getElementById('text1');
-const submitBtn = document.getElementById('submitBtn');
 let responseText = document.getElementById('responseText');
+const saveBtn = document.getElementById('saveBtn');
+const rhymeBtn = document.getElementById('submitBtn');
 const url = "https://api.datamuse.com/words?rel_rhy="
 
-const getRhyme = () => {
-    let input = textarea1.value;
+const getRhyme = (string) => {
+    let input = string;
     let endpoint = url + input;
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -24,27 +25,50 @@ const getRhyme = () => {
     xhr.send();
 }
 
-
-submitBtn.onclick = () =>  {
-    getRhyme();
-    textareaToText();
+const stringToArray = (string) => {
+    newArray = string.split(' ');
+    text1.value = newArray;
+    text1.innerHTML = newArray;
 }
 
-function textareaToText() {
-}
-
-document.body.onclick = () => {
+saveBtn.onmousedown = () => {
     if (!textarea1.value) {
         return
     }
-    text1.innerHTML = textarea1.value;
-    textarea1.style.display = "none";
-    console.log(text1.innerHTML);
+    stringToArray(textarea1.value);
 }
 
-text1.onclick = 
-
-
-function hideTextArea() {
-    
+rhymeBtn.onclick = () => {
+    if (text1.value) {
+        console.log('Finding rhymes for: ' + text1.value[2]);
+        return getRhyme(text1.value[2]);
+    } else {
+        return console.log('Error: no words to rhyme!')
+    }
 }
+
+// Pass either an id or a DOM element
+var wrapContent = (function() {
+
+    // This could be passed as a parameter
+    var oSpan = document.createElement('span');
+    oSpan.className = 'mySpanClass';
+  
+    return function(id) {
+      var el = (typeof id == 'string')? document.getElementById(id) : id;
+      var node, nodes = el && el.childNodes;
+      var span;
+      var fn = arguments.callee;
+  
+      for (var i=0, iLen=nodes.length; i<iLen; i++) {
+        node = nodes[i];
+        if (node.nodeType == 3) {
+          span = oSpan.cloneNode(false);
+          node.parentNode.insertBefore(span, node);
+          span.appendChild(node);
+        } else {
+          fn(node);
+        }
+      }
+    }
+  }());
