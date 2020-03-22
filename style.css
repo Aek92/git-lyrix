@@ -107,6 +107,17 @@ h4 {
     margin-bottom: 2rem;
     border: none;
     background-color: sienna;
+    display: none;
+    position: pointer;
+}
+
+span {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+span:hover {
+    color: black;
 }
 
 #section2, #section3, #section4, #section5, #section6, #section7 {
@@ -135,7 +146,6 @@ h4 {
 
 #responseArea {
     width: 220px;
-    height: 220px;
     background-color: rgb(124, 43, 6);
     border-radius: 15px;
     margin-left: auto;
