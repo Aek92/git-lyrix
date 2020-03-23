@@ -1,5 +1,6 @@
 let textarea1 = document.getElementById('textarea1');
 let text1 = document.getElementById('text1');
+let hint = document.getElementById('hint');
 let responseText = document.getElementById('responseText');
 let responseArea = document.getElementById('responseArea');
 const saveBtn = document.getElementById('saveBtn');
@@ -32,54 +33,56 @@ const getRhyme = (string) => {
     xhr.send();
 }
 
-const stringToArray = (string) => {
-    newArray = string.split(' ');
-    text1.value = newArray;
-}
-
-saveBtn.onmousedown = () => {
-    if (!textarea1.value) {
-        return
-    }
-
-    textarea1.style.display = "none";
-    text1.style.display = "block";
-
-    stringToArray(textarea1.value);
-
-    function clickableArray() {
-        let array = text1.value;
-        console.log(array);
-        array.forEach((word) => {
-            let span = document.createElement('span');
-            span.textContent = word + ' ';
-            text1.appendChild(span);
-        });
-        text1.addEventListener('click', function(event) {
-            if (event.target !== this) {
-                getRhyme(event.target.textContent);
-                if (rhymeNr === 0) {
-                    setTimeout(() => {
-                        event.target.textContent = rhymeArray[rhymeNr - 1] + ' ';
-                        
-                    }, 50);
-                } else {
-                    event.target.textContent = rhymeArray[rhymeNr] + ' ';
-                }
-                console.log(event.target.textContent);
-                rhymeNr++;
-            }
-        });
-    }
-
-    clickableArray();
-}
-
-rhymeBtn.onclick = () => {
-    if (text1.value) {
-        console.log('Finding rhymes for: ' + text1.value[2]);
-        return getRhyme(text1.value[2]);
+// window click listener
+window.addEventListener('click', function (e) {
+    // Checks if click is inside or outside textarea
+    if (document.getElementById('textarea1').contains(e.target)) {
+        return;
+        // If outside textarea:
     } else {
-        return console.log('Error: no words to rhyme!')
+        {
+            // AND IF textarea is empty:
+            if (!textarea1.value) {
+                return
+            }
+            // Then, execute the following:
+            // UI Change:
+            textarea1.style.display = "none";
+            hint.innerHTML = "Hint: click on a word to replace it with a rhyming word!";
+            text1.style.display = "block";
+
+            // Passes string from textarea1 as array to text1.value:
+            let array = textarea1.value.split(' ');
+            text1.value = array;
+
+            function clickableArray() {
+
+                // Each "word" in array: creates span element, adds "word" as content, append to text1
+                array.forEach((word) => {
+                    let span = document.createElement('span');
+                    span.textContent = word + ' ';
+                    text1.appendChild(span);
+                });
+                // 
+                text1.addEventListener('click', function(event) {
+                    if (event.target !== this) {
+                        getRhyme(event.target.textContent);
+                        if (rhymeNr === 0) {
+                            setTimeout(() => {
+                                console.log('1')
+                                event.target.textContent = rhymeArray[rhymeNr - 1] + ' ';
+                            }, 100);
+                        } else {
+                            event.target.textContent = rhymeArray[rhymeNr] + ' ';
+                        }
+                        console.log(event.target.textContent);
+                        rhymeNr++; 
+                        console.log('2');
+                    }
+                });
+            }
+
+            clickableArray();
+        }
     }
-}
+});
