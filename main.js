@@ -33,6 +33,8 @@ const getRhyme = (string) => {
     xhr.send();
 }
 
+let savedText = false;
+
 // window click listener
 window.addEventListener('click', function (e) {
     // Checks if click is inside or outside textarea
@@ -58,18 +60,20 @@ window.addEventListener('click', function (e) {
             function clickableArray() {
 
                 // Each "word" in array: creates span element, adds "word" as content, append to text1
-                array.forEach((word) => {
-                    let span = document.createElement('span');
-                    span.textContent = word + ' ';
-                    text1.appendChild(span);
-                });
+                if (savedText === false) {
+                    array.forEach((word) => {
+                        let span = document.createElement('span');
+                        span.textContent = word + ' ';
+                        text1.appendChild(span);
+                    });
+                    savedText = true;
+                };
                 // 
                 text1.addEventListener('click', function(event) {
                     if (event.target !== this) {
                         getRhyme(event.target.textContent);
                         if (rhymeNr === 0) {
                             setTimeout(() => {
-                                console.log('1')
                                 event.target.textContent = rhymeArray[rhymeNr - 1] + ' ';
                             }, 100);
                         } else {
@@ -77,7 +81,6 @@ window.addEventListener('click', function (e) {
                         }
                         console.log(event.target.textContent);
                         rhymeNr++; 
-                        console.log('2');
                     }
                 });
             }
