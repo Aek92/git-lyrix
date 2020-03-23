@@ -25,6 +25,7 @@ const getRhyme = (string) => {
     xhr.send();
 }
 
+
 const stringToArray = (string) => {
     newArray = string.split(' ');
     text1.value = newArray;
