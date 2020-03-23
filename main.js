@@ -6,7 +6,7 @@ let responseArea = document.getElementById('responseArea');
 let synRhyme = document.getElementById("synRhyme");
 const saveBtn = document.getElementById('saveBtn');
 const rhymeBtn = document.getElementById('submitBtn');
-let url = "https://api.datamuse.com/words?rel_rhy=";
+let url = "https://api.datamuse.com/words?rel_syn=";
 
 let rhymeArray = [];
 let rhymeNr = 0;
