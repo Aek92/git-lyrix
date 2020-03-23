@@ -134,12 +134,6 @@ span:hover {
     color: rgb(124, 43, 6); 
 }
 
-#submitBtn:hover, #saveBtn:hover {
-    background-color: rgb(75, 26, 4);
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
 #responseArea {
     width: 220px;
     background-color: rgb(124, 43, 6);

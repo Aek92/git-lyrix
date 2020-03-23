@@ -3,18 +3,25 @@ let text1 = document.getElementById('text1');
 let hint = document.getElementById('hint');
 let responseText = document.getElementById('responseText');
 let responseArea = document.getElementById('responseArea');
+let synRhyme = document.getElementById("synRhyme");
 const saveBtn = document.getElementById('saveBtn');
 const rhymeBtn = document.getElementById('submitBtn');
-const url = "https://api.datamuse.com/words?rel_rhy="
+let url = "https://api.datamuse.com/words?rel_rhy=";
 
 let rhymeArray = [];
 let rhymeNr = 0;
 
+/*
+synRhyme.onclick = () => {
+    url = "https://api.datamuse.com/words?rel_syn=";
+}
+*/
 
 const getRhyme = (string) => {
+    rhymeArray = [];
     let input = string;
     let endpoint = url + input;
-    const xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -58,9 +65,9 @@ window.addEventListener('click', function (e) {
             text1.value = array;
 
             function clickableArray() {
-
-                // Each "word" in array: creates span element, adds "word" as content, append to text1
+                // Checks if array has already been stored in text1.value variable
                 if (savedText === false) {
+                    // Each "word" in array: creates span element, adds "word" as content, append to text1
                     array.forEach((word) => {
                         let span = document.createElement('span');
                         span.textContent = word + ' ';
@@ -69,23 +76,47 @@ window.addEventListener('click', function (e) {
                     savedText = true;
                 };
                 // 
-                text1.addEventListener('click', function(event) {
+                text1.addEventListener('click', function (event) {
                     if (event.target !== this) {
-                        getRhyme(event.target.textContent);
-                        if (rhymeNr === 0) {
-                            setTimeout(() => {
-                                event.target.textContent = rhymeArray[rhymeNr - 1] + ' ';
-                            }, 100);
+                        let currentWord = event.target.textContent;
+                        let wordWithoutSpace = currentWord.slice(0, currentWord.length - 1)
+                        let symbols = ["!", "<", ">", ".", ",", "?", "%", "$", "/", "&", "-", ":", ")", "(", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+                        let lastChar = (wordWithoutSpace.charAt(wordWithoutSpace.length - 1));
+                        let storedChar = "";
+                        let upperCaseBoolean;
+                        // Checks if lastChar is a symbol and if so, removes it for API query and adds it back in at output.
+                        if (symbols.includes(lastChar)) {
+                            wordWithoutSpace = wordWithoutSpace.slice(0, wordWithoutSpace.length - 1);
+                            storedChar = lastChar;
+                        };
+                        // Checks if firstChar is uppercase and if so, transforms firstChar of output to uppercase.
+                        if (rhymeArray.includes(wordWithoutSpace)) {
+                            if (rhymeNr === 0) {
+                                setTimeout(() => {
+                                    event.target.textContent = rhymeArray[rhymeNr - 1] + storedChar + ' ';
+                                }, 100);
+                            } else {
+                                event.target.textContent = rhymeArray[rhymeNr] + storedChar + ' ';
+                            }
                         } else {
-                            event.target.textContent = rhymeArray[rhymeNr] + ' ';
+                            rhymeNr = 0;
+                            getRhyme(wordWithoutSpace);
+                            if (rhymeNr === 0) {
+                                setTimeout(() => {
+                                    event.target.textContent = rhymeArray[rhymeNr - 1] + storedChar + ' ';
+                                }, 150);
+                            } else {
+                                event.target.textContent = rhymeArray[rhymeNr] + storedChar + ' ';
+                            }
                         }
-                        console.log(event.target.textContent);
-                        rhymeNr++; 
+                        rhymeNr++;
                     }
                 });
             }
-
-            clickableArray();
+            // Makes sure the array is added click functionality only once for every savedText:
+            if (savedText === false) {
+                clickableArray();
+            }
         }
     }
 });

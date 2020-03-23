@@ -1,0 +1,9 @@
+Overview: changes and planned functionality.
+
+Changes/Fixes:
+1. PROBLEM: when you enter a text and rhyme a word, and then wish to rhyme another word in the same text, words get replaced with rhymes for the first word. 
+1. SOLUTION: ensure the API gets queried for each word clicked in the text and that words clicked will always be replaced by a corresponding rhyme.
+
+2. PROBLEM: when you click on a word that ends with a symbol (like . or ,) Datamuse API will return incorrectly. 
+2. SOLUTION: filter out any symbols before sending of string as querystring to API.
+
