@@ -1,0 +1,18 @@
+
+Required functionality:
+
+1. Add text fields based on song structure.
+2. Copy/paste in song lyrics.
+3. SHIFT-CLICK to select rhyme reference.
+4. If rhyme reference selected, click changes word to a rhyming word.
+5. If no rhyme reference is selected, click changes word to a synonym.
+6. Error message field.
+7. Can add as many sections as you want.
+8. Button "Optimise" automatically: 
+	- Changes words with length over 5 chars with synonym.
+	- Rhymes line endings based on song section .
+		- Verse: approximate rhymes (rel_nry).
+		- Pre-chorus: medium rhyme score (rel_rhy).
+		- Hook: high rhyme score (rel_rhy).
+	- Suggests a title from hook noun with common adjective (rel_jjb) or opposite (rel_jja).
+
