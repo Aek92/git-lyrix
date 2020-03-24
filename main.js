@@ -54,7 +54,7 @@ window.addEventListener('click', function (e) {
             // Then, execute the following:
             // UI Change:
             textarea1.style.display = "none";
-            hint.innerHTML = "Hint: click on a word to replace it with a rhyming word!";
+            hint.innerHTML = " ";
             text1.style.display = "block";
 
             // Passes string from textarea1 as array to text1.value:
@@ -120,12 +120,9 @@ window.addEventListener('click', function (e) {
                                 getRhyme(wordWithoutSpace);
                                 setTimeout(() => {
                                     event.target.textContent = rhymeArray[rhymeNr] + storedChar + ' ';
-                                    console.log('what!');
-                                    console.log(rhymeArray);
                                 }, 150);
                             } else {
                                 event.target.textContent = rhymeArray[rhymeNr] + storedChar + ' ';
-                                console.log('test2');
                             }
                         }
                         rhymeNr++;
