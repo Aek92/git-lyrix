@@ -1,21 +1,19 @@
+let synRhymeSwitch = document.getElementById("synRhymeSwitch");
+let responseArea = document.getElementById('responseArea');
+let responseText = document.getElementById('responseText');
+const rhymeBtn = document.getElementById('submitBtn');
 let textarea1 = document.getElementById('textarea1');
+let url = "https://api.datamuse.com/words?rel_syn=";
+const saveBtn = document.getElementById('saveBtn');
 let text1 = document.getElementById('text1');
 let hint = document.getElementById('hint');
-let responseText = document.getElementById('responseText');
-let responseArea = document.getElementById('responseArea');
-let synRhyme = document.getElementById("synRhyme");
-const saveBtn = document.getElementById('saveBtn');
-const rhymeBtn = document.getElementById('submitBtn');
-let url = "https://api.datamuse.com/words?rel_syn=";
-
+let highlightedEventTarget;
+let selectedRhymeWord;
+let savedText = false;
 let rhymeArray = [];
 let rhymeNr = 0;
 
-/*
-synRhyme.onclick = () => {
-    url = "https://api.datamuse.com/words?rel_syn=";
-}
-*/
+
 
 const getRhyme = (string) => {
     rhymeArray = [];
@@ -40,7 +38,6 @@ const getRhyme = (string) => {
     xhr.send();
 }
 
-let savedText = false;
 
 // window click listener
 window.addEventListener('click', function (e) {
@@ -64,7 +61,7 @@ window.addEventListener('click', function (e) {
             let array = textarea1.value.split(' ');
             text1.value = array;
 
-            function clickableArray() {
+            var clickableArray = () => {
                 // Checks if array has already been stored in text1.value variable
                 if (savedText === false) {
                     // Each "word" in array: creates span element, adds "word" as content, append to text1
@@ -76,37 +73,59 @@ window.addEventListener('click', function (e) {
                     savedText = true;
                 };
                 // 
-                text1.addEventListener('click', function (event) {
+                text1.addEventListener('click', function(event) {
                     if (event.target !== this) {
                         let currentWord = event.target.textContent;
                         let wordWithoutSpace = currentWord.slice(0, currentWord.length - 1)
                         let symbols = ["!", "<", ">", ".", ",", "?", "%", "$", "/", "&", "-", ":", ")", "(", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
                         let lastChar = (wordWithoutSpace.charAt(wordWithoutSpace.length - 1));
                         let storedChar = "";
-                        let upperCaseBoolean;
-                        // Checks if lastChar is a symbol and if so, removes it for API query and adds it back in at output.
+                        // CHEKCS: if lastChar is a symbol and if so, removes it for API query and adds it back in at output.
                         if (symbols.includes(lastChar)) {
                             wordWithoutSpace = wordWithoutSpace.slice(0, wordWithoutSpace.length - 1);
                             storedChar = lastChar;
                         };
-                        // Checks if firstChar is uppercase and if so, transforms firstChar of output to uppercase.
-                        if (rhymeArray.includes(wordWithoutSpace)) {
-                            if (rhymeNr === 0) {
-                                setTimeout(() => {
-                                    event.target.textContent = rhymeArray[rhymeNr - 1] + storedChar + ' ';
-                                }, 100);
-                            } else {
-                                event.target.textContent = rhymeArray[rhymeNr] + storedChar + ' ';
-                            }
-                        } else {
+                        // CHECKS: if shift key was pressed, and if so, adds word to rhymeIt.
+                        if (event.shiftKey && (event.target.style.color === "yellow")) {
+                            url = "https://api.datamuse.com/words?rel_syn=";
+                            highlightedEventTarget.style.color = "";
+                            highlightedEventTarget.style.fontSize = "";
+                            rhymeArray = [];
                             rhymeNr = 0;
-                            getRhyme(wordWithoutSpace);
+                            return;
+                        }
+                        if (event.shiftKey) {
+                            if (selectedRhymeWord) {
+                                highlightedEventTarget.style.color = "";
+                                highlightedEventTarget.style.fontSize = "";
+                            }
+                            highlightedEventTarget = event.target;
+                            event.target.style.color = "yellow";
+                            event.target.style.fontSize = "1.8rem";
+                            selectedRhymeWord = wordWithoutSpace;
+                            url = "https://api.datamuse.com/words?rel_rhy=";
+                            getRhyme(selectedRhymeWord);
+                            return;
+                        }
+                        if (rhymeArray.includes(wordWithoutSpace)) {
                             if (rhymeNr === 0) {
                                 setTimeout(() => {
                                     event.target.textContent = rhymeArray[rhymeNr - 1] + storedChar + ' ';
                                 }, 150);
                             } else {
                                 event.target.textContent = rhymeArray[rhymeNr] + storedChar + ' ';
+                            }
+                        } else {
+                            if (rhymeNr === 0) {
+                                getRhyme(wordWithoutSpace);
+                                setTimeout(() => {
+                                    event.target.textContent = rhymeArray[rhymeNr] + storedChar + ' ';
+                                    console.log('what!');
+                                    console.log(rhymeArray);
+                                }, 150);
+                            } else {
+                                event.target.textContent = rhymeArray[rhymeNr] + storedChar + ' ';
+                                console.log('test2');
                             }
                         }
                         rhymeNr++;
@@ -120,3 +139,4 @@ window.addEventListener('click', function (e) {
         }
     }
 });
+

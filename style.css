@@ -62,21 +62,21 @@ h4 {
 }
 
 .textarea {
-    width: 520px;
+    width: 510px;
     font-family: "Baloo Tamma 2";
     padding: 5px;
     border-radius: 5px;
-    text-align: left;
+    text-align: center;
     line-height: 1.4;
     font-size: 18px;
     color: seashell;
     font-weight: 500;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     background-color: sienna;
-    margin-bottom: 0.2rem;
     border: none;
+    resize: none;
+    outline: none;
 }
 #text1Description {
     width: 520px;
@@ -93,36 +93,49 @@ h4 {
 }
 
 #text1 {
-    width: 520px;
     padding: 5px;
     border-radius: 5px;
-    text-align: left;
+    text-align: center;
     line-height: 1.4;
     font-size: 18px;
     color: seashell;
     font-weight: 500;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 0.2rem;
+    margin: auto auto;
     border: none;
-    background-color: sienna;
     display: none;
     position: pointer;
+    white-space: pre-wrap;
+}
+
+#textBackground {
+    min-height: 130px;
+    max-height: 200px;
+    width: 520px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: sienna;
+    display: flex;
+}
+
+#textBackground:hover {
 }
 
 span {
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease-in;
+    transition: all 0.4s ease-out;
+    line-height: 1.8rem;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-     -khtml-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 span:hover {
-    color: black;
+    color: rgb(24, 142, 65);
+    font-size: 3rem;
 }
 
 #section2, #section3, #section4, #section5, #section6, #section7 {
