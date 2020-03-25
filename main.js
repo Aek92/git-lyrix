@@ -23,7 +23,7 @@ const datamuse = {
 // }
 
 class sectionModuleTemplate {
-    constructor(sectionsCreated) {
+    constructor(sectionName) {
         section = "section";
         labelInput = "labelInput",
         textBackground = "textBackground",
@@ -33,8 +33,11 @@ class sectionModuleTemplate {
     }
 }
 
+function newSectionName() {
 
+}
 let sectionsCreated = 1;
+let sectionName = "section" + sectionsCreated;
 
 let sections = [];
 
@@ -52,11 +55,14 @@ addSectionBtn.addEventListener("click", function() {
 
 
 
-class Section {
-    constructor(number) {
 
-    }
-}
+
+
+
+
+
+
+
 
 class Word {
     constructor(index) {
@@ -80,25 +86,27 @@ class Word {
 
 
 
-
-function requestSuggestions(word) {
+// returns an array with 10 objects {word: "amazing", score: 3000, numSyllables: 1}
+function requestSuggestions(queryString, word) {
+    let endpoint = datamuse.url + queryString + word;
+    let suggestionObjects = [];
     let xhr = new XMLHttpRequest();
+    xhr.open("GET", endpoint, true);
     xhr.responseType = "json";
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-        let jsonResponse = xhr.parse(JSON.stringify(word));
-
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            suggestionObjects = xhr.response.splice(0, 10);
+            console.log(suggestionObjects);
+            return suggestionObjects;
+        }
     }
-    xhr.open("GET", endpoint);
     xhr.send();
 }
 
 
 
+let hello = requestSuggestions("rel_rhy=", "they");
 
-function suggestionController(event) {
+console.log(hello);
 
-}
-
-function UIController(event) {
-
-}
+console.log("Did I cheat? I should be last")
