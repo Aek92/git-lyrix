@@ -2,25 +2,17 @@
 const datamuse = {
     url: "https://api.datamuse.com/words?",
     queryStrings: {
-        perfectRhyme: "rel_rhy=",
+        rhyme: "rel_rhy=",
         approxRhyme: "rel_nry=",
-        adjFromNoun: "rel_jjb=",
-        nounFromAdj: "rel_jja=",
+        ajective: "rel_jjb=",
+        noun: "rel_jja=",
+        synonym: "rel_jja=",
     }
 }
 
 // Lists all class names for section elements in order.
 // IDs are assigned as classname + sectionNumber.
 
-
-// const sectionModuleTemplate = {
-//     section: "section",
-//     labelInput: "labelInput",
-//     textBackground: "textBackground",
-//     textarea: "textarea",
-//     text: "text",
-//     hint: "hint",
-// }
 
 class sectionModuleTemplate {
     constructor(sectionName) {
@@ -33,9 +25,7 @@ class sectionModuleTemplate {
     }
 }
 
-function newSectionName() {
 
-}
 let sectionsCreated = 1;
 let sectionName = "section" + sectionsCreated;
 
@@ -85,28 +75,45 @@ class Word {
 
 
 
+let time = 10;
+let suggestionObjects = [];
 
 // returns an array with 10 objects {word: "amazing", score: 3000, numSyllables: 1}
 function requestSuggestions(queryString, word) {
     let endpoint = datamuse.url + queryString + word;
-    let suggestionObjects = [];
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint, true);
     xhr.responseType = "json";
     xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            suggestionObjects = xhr.response.splice(0, 10);
-            console.log(suggestionObjects);
-            return suggestionObjects;
+           // suggestionObjects = xhr.response.splice(0, 10);
+           for (let i = 0; i < 10; i++) {
+                suggestionObjects.push(xhr.response[i]);
+            }   
         }
     }
+    xhr.open("GET", endpoint, true);
     xhr.send();
 }
 
 
+function wait() {
+    requestSuggestions("rel_rhy=", "car");
+    setTimeout(function() {
+        requestSuggestions("rel_jjb=", "car");
+        setTimeout(function() {
+            requestSuggestions("rel_nry=", "car");
+            setTimeout(function(){
+                requestSuggestions("rel_syn=", "car");
+                setTimeout(function(){
+                    requestSuggestions("rel_jja=", "car");
+                    setTimeout(function() {
+                        console.log(suggestionObjects);
+                    }, time)
+                }, time)
+            }, time)
+        }, time)
+    }, time);
+}
 
-let hello = requestSuggestions("rel_rhy=", "they");
+wait();
 
-console.log(hello);
-
-console.log("Did I cheat? I should be last")
