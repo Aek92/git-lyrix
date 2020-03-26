@@ -1,4 +1,5 @@
 // Lists relevant information from API provider like url and query strings
+// Change values and add/remove new properties to get alter functionality
 const datamuse = {
     url: "https://api.datamuse.com/words?",
     queryStrings: {
@@ -6,34 +7,33 @@ const datamuse = {
         approxRhyme: "rel_nry=",
         ajective: "rel_jjb=",
         noun: "rel_jja=",
-        synonym: "rel_jja=",
+        synonym: "rel_syn=",
     }
 }
 
+
 // Lists all class names for section elements in order.
 // IDs are assigned as classname + sectionNumber.
-
-
 class sectionModuleTemplate {
     constructor(sectionName) {
         section = "section";
         labelInput = "labelInput",
-        textBackground = "textBackground",
-        textarea = "textarea";
+            textBackground = "textBackground",
+            textarea = "textarea";
         text = "text";
         hint = "hint";
     }
 }
 
 
-let sectionsCreated = 1;
+// Introduces "Add section" functionality
+// Temporarily tied to the HTML button 
+const addSectionBtn = document.getElementById("addSectionBtn");
 let sectionName = "section" + sectionsCreated;
-
+let sectionsCreated = 1;
 let sections = [];
 
-const addSectionBtn = document.getElementById("addSectionBtn");
-
-addSectionBtn.addEventListener("click", function() {
+addSectionBtn.addEventListener("click", function () {
     sectionsCreated++;
     window["section" + sectionsCreated] = {};
     for (let key in sectionModuleTemplate) {
@@ -44,76 +44,22 @@ addSectionBtn.addEventListener("click", function() {
 });
 
 
+// wordArray: Simulating the words array made from textarea userinput:
+// result: Simulating the location in a section object where arrays of "word-objects" will be pushed.
+let wordArray = [["cure"], ["feel"]];
+let result = [];
 
-
-
-
-
-
-
-
-
-
-class Word {
-    constructor(index) {
-
-        // Key-value pairs are set to properties of returned JSON object.
-        // Query strings are keys, suggestions as respective values.
-    }
-}
-
-// Upon saving text:
-// 1. saves words to array without spaces
-// 2. wraps array element in span elements
-// 3. forEach creates objects out of elements
-
-
-
-// section1.p.wordIndex2.addEventListener("click", suggestionController(event))
-
-
-
-
-
-let time = 10;
-let suggestionObjects = [];
-
-// returns an array with 10 objects {word: "amazing", score: 3000, numSyllables: 1}
-function requestSuggestions(queryString, word) {
-    let endpoint = datamuse.url + queryString + word;
-    let xhr = new XMLHttpRequest();
-    xhr.responseType = "json";
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-           // suggestionObjects = xhr.response.splice(0, 10);
-           for (let i = 0; i < 10; i++) {
-                suggestionObjects.push(xhr.response[i]);
-            }   
+function requestSuggestions(wordsArr) {
+    wordsArr.forEach(word => {
+        for (queryString in datamuse.queryStrings) {
+            let fetchIt = async (arg1, arg2) => {
+                let endpoint = datamuse.url + datamuse.queryStrings[queryString] + word;
+                console.log(endpoint)
+                await fetch(endpoint).then(response => { return response.json(); }).then(data => { result.push(data.splice(0, 10)); return console.log(result); });
+            }
+            fetchIt(word, queryString);
         }
-    }
-    xhr.open("GET", endpoint, true);
-    xhr.send();
+    });
 }
 
-
-function wait() {
-    requestSuggestions("rel_rhy=", "car");
-    setTimeout(function() {
-        requestSuggestions("rel_jjb=", "car");
-        setTimeout(function() {
-            requestSuggestions("rel_nry=", "car");
-            setTimeout(function(){
-                requestSuggestions("rel_syn=", "car");
-                setTimeout(function(){
-                    requestSuggestions("rel_jja=", "car");
-                    setTimeout(function() {
-                        console.log(suggestionObjects);
-                    }, time)
-                }, time)
-            }, time)
-        }, time)
-    }, time);
-}
-
-wait();
-
+requestSuggestions(wordArray);
