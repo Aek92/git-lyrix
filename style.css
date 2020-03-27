@@ -1,10 +1,10 @@
 * {
     padding: 0;
     margin: 0px;
+    color: rgb(107, 38, 6);
 }
 
 html {
-    box-sizing: border-box;
     text-align: center;
     background-color: rgb(201, 103, 57);
     font-family: "Baloo Tamma 2";
@@ -13,13 +13,11 @@ html {
 h1 {
     font-size: 4rem;
     text-decoration: underline;
-    color: rgb(107, 38, 6);
     margin-top: 2rem;
     line-height: 0.6;
 }
 
 h3 {
-    color: rgb(107, 38, 6);
     margin: 0;
     padding: 0;
     margin-bottom: 30px;
@@ -28,7 +26,6 @@ h3 {
 h4 {
     font-weight: 500;
     margin-bottom: 25px;
-    color: rgb(107, 38, 6);
 }
 
 button {
@@ -36,7 +33,7 @@ button {
     margin: 10px;
     font-size: 18px;
     cursor: pointer;
-    background-color: rgb(157, 57, 10);
+    background: rgb(157, 57, 10);
     color: seashell;
     border: none;
     transition: all 0.3s ease;
@@ -47,28 +44,13 @@ button:hover {
     color: seashell;
 }
 
-#sectionContainer {
-    display: wrap;
-    justify-content: center;
-}
-
-#songSections {
-    max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 .labelInput, .section {
     background-color: rgb(201, 103, 58);
     padding: 5px;
     border: none;
-    color: rgb(107, 38, 6);
     font-weight: 700;
     font-size: 18px;
-}
-
-.section {
-    display: wrap;
 }
 
 .labelInput {
@@ -79,32 +61,18 @@ button:hover {
 .textarea {
     width: 510px;
     font-family: "Baloo Tamma 2";
-    padding: 5px;
+    padding: 20px;
     border-radius: 5px;
     text-align: center;
     line-height: 1.4;
     font-size: 18px;
     color: seashell;
     font-weight: 500;
-    display: block;
     margin: auto;
     background-color: sienna;
     border: none;
     resize: none;
     outline: none;
-}
-#text1Description {
-    width: 520px;
-    border-radius: 5px;
-    text-align: left;
-    line-height: 1.4;
-    font-size: 18px;
-    color: rgb(107, 38, 6);
-    font-weight: 500;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border: none;
 }
 
 .text {
@@ -129,34 +97,16 @@ button:hover {
     width: 520px;
     padding: 5px;
     border-radius: 5px;
-    background-color: sienna;
     display: flex;
 }
 
 
-span {
-    cursor: pointer;
-    transition: all 0.2s ease-in;
-    transition: all 0.4s ease-out;
-    line-height: 1.8rem;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+#songSections {
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-span:hover {
-    color: rgb(24, 142, 65);
-    font-size: 3rem;
+#container {
+    width: 100%;
 }
-
-#section2, #section3, #section4, #section5, #section6, #section7 {
-    display: none;
-}
-
-.hint {
-    text-align: left;
-    color: rgb(124, 43, 6); 
-}
-

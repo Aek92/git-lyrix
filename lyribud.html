@@ -7,27 +7,27 @@
 </head>
 
 <body>
-    <h1>Lyribud.</h1>
-    <h3>Level up your lyrics!</h3>
-    <h4 id="instructions"><strong><u>INSTRUCTIONS:</u></strong><br>1. Add song sections.<br>2. Copy/paste in your
-        lyrics.<br>3. CLICK on a word to replace it with a synonym,<br>4. SHIFT-CLICK to add rhyme reference and click
-        on other words to replace the word with a rhyme.</h4>
-    <div id="sectionContainer">
-        <button id="addSectionBtn">Add section</button>
-        <div id="songSections">
-            <div class="section" id="section1">
-                <input class="labelInput" id="labelInput1" value="Verse 1"></input>
-                <div class="textBackground" id="textBackground1">
-                    <textarea id="textarea1" class="textarea" cols="50" rows="4"></textarea>
-                    <p class="text" id="text1"></p>
+    <div>
+        <h1>Lyribud.</h1>
+        <h3>Level up your lyrics!</h3>
+        <h4 id="instructions"><strong><u>INSTRUCTIONS:</u></strong><br>1. Add song sections.<br>2. Copy/paste in your
+            lyrics.<br>3. CLICK on a word to replace it with a synonym,<br>4. SHIFT-CLICK to add rhyme reference and click
+            on other words to replace the word with a rhyme.</h4>
+    </div>
+    <div id="container">
+        <div id="sectionContainer">
+            <button id="addSectionBtn">Add section</button>
+            <div id="songSections">
+                <div class="section" id="section1">
+                    <input class="labelInput"  value="Verse 1"></input>
+                    <div class="textBackground" id="textBackground1">
+                        <textarea id="textarea1" class="textarea" cols="50" rows="4"></textarea>
+                        <p class="text" id="text1"></p>
+                    </div>
                 </div>
-                <p class="hint" id="hint1">Hint: click outside the textbox to save text!</p>
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="main.js"></script>
 </body>
-<footer>
-</footer>
-<script type="text/javascript" src="main.js"></script>
-
 </html>
